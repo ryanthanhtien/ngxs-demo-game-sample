@@ -1,4 +1,21 @@
-.welcome-card ion-img {
-  max-height: 35vh;
-  overflow: hidden;
+.game-char{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li{
+    display: inline-block;
+    color: #fff;
+    padding: 10px;
+    width: 50%;
+    span{
+      display: block;
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ccc;
+      background: rgb(121, 15, 15);
+    }
+    &.selected span{
+        opacity: 0.8;
+    }
+  }
 }

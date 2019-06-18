@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { withLatestFrom } from 'rxjs/operators';
+import { Store, Select } from '@ngxs/store';
+import { DecreaseScore, SelectCharacter, IncreaseScore, StartGame } from '../actions/game.actions';
+import { GameState } from '../states/game.state';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +11,30 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  
+  @Select(GameState) gameState$: Observable<any>;
+  radomCharacter:Array<any> = [];
+  constructor(private store: Store) {
+    this.gameState$.subscribe(state => {
+      this.radomCharacter = state.three_radom_character;
+    });
+  }
 
-  constructor() {}
+  userSelect(item){
+    item['selected'] = !item['selected'];
+  }
+
+  startGame(){
+    this.store.dispatch(new StartGame());
+  }
+
+  increaseScore(){
+    this.store.dispatch(new IncreaseScore());
+  }
+
+  decreaseScore(){
+    this.store.dispatch(new DecreaseScore());
+  }
+
 
 }
