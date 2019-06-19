@@ -13,6 +13,8 @@ import { GameState } from '../states/game.state';
 export class HomePage {
   
   @Select(GameState) gameState$: Observable<any>;
+  @Select(GameState.endGame) endGame$: Observable<any>;
+  @Select(GameState.userSelectedCharacters) user_selected_characters$: Observable<any>;
   radomCharacter:Array<any> = [];
   constructor(private store: Store) {
     this.gameState$.subscribe(state => {
@@ -22,6 +24,12 @@ export class HomePage {
 
   userSelect(item){
     item['selected'] = !item['selected'];
+    if(item['selected']){
+      this.store.dispatch(new DecreaseScore());
+    }else{
+      this.store.dispatch(new IncreaseScore());
+    }
+    this.store.dispatch(new SelectCharacter());
   }
 
   startGame(){
@@ -35,6 +43,7 @@ export class HomePage {
   decreaseScore(){
     this.store.dispatch(new DecreaseScore());
   }
+
 
 
 }

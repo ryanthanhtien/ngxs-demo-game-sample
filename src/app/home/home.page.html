@@ -4,12 +4,20 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Score: {{ (gameState$ | async ).score }}
+      Điểm : {{ (gameState$ | async ).score }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+    <ul class="game-result-zone">
+        <li *ngFor="let resultItem of  (gameState$ | async ).three_radom_character">
+          <span>
+            {{resultItem.id}}
+          </span>
+        </li>
+      </ul>
 
   <ul class="game-char">
     <li [class.selected]="item.selected" *ngFor="let item of (gameState$ | async ).characters"
@@ -20,19 +28,12 @@
     </li>
   </ul>
 
-  <ul class="game-result-zone">
-    <li *ngFor="let resultItem of  (gameState$ | async ).three_radom_character">
-      <span>
-        {{resultItem.id}}
-      </span>
-    </li>
-  </ul>
-
-  <!-- Icons -->
-  <ion-button (click)="startGame()">
-    <ion-icon slot="start" name="star"></ion-icon>
-    Start game
-  </ion-button>
+  <div text-center>
+    <ion-button [disabled]="!(user_selected_characters$ | async).length" (click)="startGame()">
+        {{(gameState$ | async ).end_game ? 'Chơi lại' : 'Bắt đầu'}} 
+    </ion-button>
+  </div>
+ 
 
 
 </ion-content>

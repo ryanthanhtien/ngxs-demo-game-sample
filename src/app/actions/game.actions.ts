@@ -14,5 +14,8 @@ export class StartGame{
 
 export class SelectCharacter{
     static readonly type = '[SelectCharacter] Select Character';
-    constructor(public payload: any) {}
+}
+
+export class RestartGame{
+    static readonly type = '[RestartGame] Restart Game';
 }
